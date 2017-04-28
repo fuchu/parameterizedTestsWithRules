@@ -22,7 +22,7 @@
       debug: msg="Copy Start..."
     - name: Copy Front Files
       copy:
-        src: '/mnt/DotNetBuilds/{{srcfolder}}/target/parameterizedTestsWithRules-1.0.0.jar'
+        src: '/mnt/DotNetBuilds/{{srcfolder}}/parameterizedTestsWithRules-1.0.0.jar'
         dest: '{{destdir}}'
 
     - name: CheckResult
