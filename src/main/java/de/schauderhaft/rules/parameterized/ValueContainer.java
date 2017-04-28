@@ -6,7 +6,7 @@ public class ValueContainer<T> {
     public void set(T t) {
         value = t;
     }
-
+;
     public T get() {
         return value;
     }
