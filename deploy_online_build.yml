@@ -35,5 +35,4 @@
 
   handlers:
     - name: CheckResult
-      debug:
-        msg: sym.stat.mtime.stdout_lines
+      command: stat '{{destdir}}/parameterizedTestsWithRules-1.0.0.jar'
