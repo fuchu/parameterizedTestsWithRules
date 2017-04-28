@@ -1,0 +1,62 @@
+- name: Deploy JunitMavenTest
+  hosts: onlineStaging
+  gather_facts: false
+  sudo: yes
+  vars_files:
+    - '{{varsfile}}.yml'
+  pre_tasks:
+     - name: mkdir destdir
+       file: 
+          path: '{{destdir}}'
+          state: directory
+#    - name: Check BackUp
+#      stat: path={{destdir}}/backup
+#      register: backup
+#    - name: Check Test jar
+#      stat: path={{destdir}}/target/parameterizedTestsWithRules-1.0.0.jar
+#      register: testjar
+#    - name: Check Backend War
+#      stat: path={{destdir}}/webapps/store.war
+#      register: backwar
+#    - name: Check Frontend Dir
+#      stat: path={{destdir}}/webapps/ROOT
+#      register: frontdir
+#    - name: Check Backend Dir
+#      stat: path={{destdir}}/webapps/store
+#      register: backdir
+#    - name: Stop Tomcat
+#      shell: nohup {{destdir}}/bin/shutdown.sh & 
+    - name: Start Files Transfer
+      debug: msg="Files Operation Start..."
+  
+  tasks:
+    - name: Delete old testjar
+      file:
+        path: '{{destdir}}/parameterizedTestsWithRules-1.0.0.jar'
+        state: 'absent'
+#      when: frontdir.stat.exists
+    - name: Start Copy Files
+      debug: msg="Copy Start..."
+    - name: Copy Front Files
+      copy:
+        src: '/mnt/DotNetBuilds/{{srcfolder}}/target/parameterizedTestsWithRules-1.0.0.jar'
+        dest: '{{destdir}}'
+
+    - name: CheckResult
+      stat:
+        path: '{{destdir}}/parameterizedTestsWithRules-1.0.0.jar'
+      register:
+        sym
+      notify:
+      - CheckResult
+#    - name: Copy Back Files
+#      copy:
+#        src: '/mnt/DotNetBuilds/{{srcfolder}}/store.war'
+#        dest: '{{destdir}}/webapps'
+#      notify:
+#      - CheckResult
+
+  handlers:
+    - name: CheckResult
+      debug:
+        msg: sym.stat.mtime
