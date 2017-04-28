@@ -36,4 +36,4 @@
   handlers:
     - name: CheckResult
       debug:
-        msg: sym.stat.mtime.stdout
+        msg: sym.stat.mtime.stdout_lines
