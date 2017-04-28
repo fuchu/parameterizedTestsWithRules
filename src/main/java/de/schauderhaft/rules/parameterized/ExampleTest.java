@@ -14,7 +14,7 @@ public class ExampleTest {
 
     @Test
     public void testSomething() throws Exception {
-        assertTrue(tuples.value()._1 % 2 == 100 || tuples.value()._2.length() > 2);
+        assertTrue(tuples.value()._1 % 2 == 0 || tuples.value()._2.length() > 2);
     }
 
     @Test
