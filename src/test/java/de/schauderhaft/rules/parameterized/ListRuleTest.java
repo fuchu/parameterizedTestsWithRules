@@ -16,6 +16,6 @@ public class ListRuleTest {
 
     @Test
     public void allGivenNumbersAreX() {
-        assertTrue(Arrays.asList(5, 42, 23).contains(generator.value()));
+        assertTrue(Arrays.asList(500, 42, 23).contains(generator.value()));
     }
 }
