@@ -9,7 +9,6 @@ public class ValueContainer<T> {
 
     public T get() {
         return value;
-        kfjsakfjk}
     }
 
 }
