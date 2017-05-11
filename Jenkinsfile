@@ -11,9 +11,9 @@ node {
    stage('Build') {
       // Run the maven build
       if (isUnix()) {
-         sh "'${mvnHome}/bin/mvn' cobertura:cobertura -Dcobertura.report.format=xml -Dmaven.test.failure.ignore clean package"
+         sh "'${mvnHome}/bin/mvn' clean cobertura:cobertura -Dcobertura.report.format=xml -Dmaven.test.failure.ignore package"
       } else {
-         bat(/"${mvnHome}\bin\mvn" cobertura:cobertura -Dcobertura.report.format=xml -Dmaven.test.failure.ignore clean package/)
+         bat(/"${mvnHome}\bin\mvn" clean cobertura:cobertura -Dcobertura.report.format=xml -Dmaven.test.failure.ignore package/)
       }
    }
    stage('Results') {
