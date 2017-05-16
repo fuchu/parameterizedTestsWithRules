@@ -5,7 +5,7 @@ stage('SCMCheckout'){
    node {
       //get the code from a github repository.
       git 'https://github.com/fuchu/parameterizedTestsWithRules.git'
-      dir(${WORKSPACE}){
+      dir("$WORKSPACE"){
       stash includes: '**', name: 'SourceCode'
       }
    }
