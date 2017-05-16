@@ -26,7 +26,7 @@ stage('Build'){
    }
 }
 stage('test'){
-   node(slave01) {
+   node('slave01') {
       parallel 'CoberturaPublisher':{
          step([$class: 'CoberturaPublisher', autoUpdateHealth: false, autoUpdateStability: false, coberturaReportFile: 'target/site/cobertura/*.xml', failNoReports: false, failUnhealthy: false, failUnstable: false, maxNumberOfBuilds: 0, onlyStable: false, sourceEncoding: 'ASCII', zoomCoverageChart: false])     
       },'testResults':{
