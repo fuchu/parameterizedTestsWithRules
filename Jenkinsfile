@@ -27,24 +27,27 @@ node {
 
 //新的jenkinsfile代码
 mvnHome=tool 'M3'
-node {
-   stage('SCMCheckout'){
+stage('SCMCheckout'){
+   node {
       //get the code from a github repository.
       git 'https://github.com/fuchu/parameterizedTestsWithRules.git'
       stash includes: '**', name: 'SourceCode'
    }
 }
-node {
-   stage('Build'){
-         if (isUnix()) {
-            sh "'${mvnHome}/bin/mvn' clean cobertura:cobertura -Dcobertura.report.format=xml -Dmaven.test.failure.ignore package"
-         } else {
-            bat(/"${mvnHome}\bin\mvn" clean cobertura:cobertura -Dcobertura.report.format=xml -Dmaven.test.failure.ignore package/)
-         }   
+
+stage('Build'){
+   node {
+      if (isUnix()) {
+         sh "'${mvnHome}/bin/mvn' clean cobertura:cobertura -Dcobertura.report.format=xml -Dmaven.test.failure.ignore package"
+      } else {
+         bat(/"${mvnHome}\bin\mvn" clean cobertura:cobertura -Dcobertura.report.format=xml -Dmaven.test.failure.ignore package/)
+      }   
    }
 }
-node {
-   stage('test'){
+
+
+stage('test'){
+   node {
       parallel 'CoberturaPublisher':{
          step([$class: 'CoberturaPublisher', autoUpdateHealth: false, autoUpdateStability: false, coberturaReportFile: 'target/site/cobertura/*.xml', failNoReports: false, failUnhealthy: false, failUnstable: false, maxNumberOfBuilds: 0, onlyStable: false, sourceEncoding: 'ASCII', zoomCoverageChart: false])     
       },'testResults':{
@@ -52,8 +55,9 @@ node {
       }
    }
 }
-node {
-   stage('Deploy'){
+
+stage('Deploy'){
+   node {
       archive 'target/*.jar'
       unstash 'SourceCode'
    }
