@@ -16,8 +16,10 @@ stage('Build'){
       mvnHome=tool 'M3'
       if (isUnix()) {
          sh "'${mvnHome}/bin/mvn' clean cobertura:cobertura -Dcobertura.report.format=xml -Dmaven.test.failure.ignore package"
+         stash includes:'**/target', name: 'Target'
       } else {
          bat(/"${mvnHome}\bin\mvn" clean cobertura:cobertura -Dcobertura.report.format=xml -Dmaven.test.failure.ignore package/)
+         stash includes:'**/target', name: 'Target'
       }   
    }
 }
