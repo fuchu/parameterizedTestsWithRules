@@ -1,4 +1,5 @@
 #!groovy
+import hudson.model.Node
 //新的jenkinsfile代码
 mvnHome=tool 'M3'
 stage('SCMCheckout'){
