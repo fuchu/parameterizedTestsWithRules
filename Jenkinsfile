@@ -35,6 +35,6 @@ stage('test'){
 stage('Deploy'){
    node {
       archive 'target/*.jar'
-      unstash 'SourceCode'
+      //unstash 'SourceCode'
    }
 }
