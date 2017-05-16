@@ -1,11 +1,11 @@
 #!groovy
 
 //新的jenkinsfile代码
-def mvnHome
-mvnHome=tool 'M3'
 stage('SCMCheckout'){
    agent {
       //get the code from a github repository.
+      def mvnHome
+      mvnHome=tool 'M3'
       git 'https://github.com/fuchu/parameterizedTestsWithRules.git'
       dir(${WORKSPACE}){
       stash includes: '**', name: 'SourceCode'
