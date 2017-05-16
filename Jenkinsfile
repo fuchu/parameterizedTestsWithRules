@@ -10,18 +10,15 @@ stage('SCMCheckout'){
 }
 stage('Build'){
    node {
+      unstash 'SourceCode'
       def mvnHome
       mvnHome=tool 'M3'
       if (isUnix()) {
          sh "'${mvnHome}/bin/mvn' clean cobertura:cobertura -Dcobertura.report.format=xml -Dmaven.test.failure.ignore package"
-         dir('target'){
-            stash includes:'**', name: 'Target'
-         }
+            stash includes:'target', name: 'Target'
       } else {
          bat(/"${mvnHome}\bin\mvn" clean cobertura:cobertura -Dcobertura.report.format=xml -Dmaven.test.failure.ignore package/)
-         dir('target'){
-            stash includes:'**', name: 'Target'
-         }
+            stash includes:'target', name: 'Target'
       }   
    }
 }
